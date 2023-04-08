@@ -134,3 +134,116 @@
 	</script>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Snake Game</title>
+	<style>
+		canvas {
+			border: solid 1px black;
+		}
+	</style>
+</head>
+<body>
+	<button id="start-button" style="position: fixed; bottom: 10px; right: 10px;">Start Game</button>
+	<script src="https://cdn.jsdelivr.net/npm/phaser@3.60.1/dist/phaser.min.js"></script>
+	<script>
+		var config = {
+			type: Phaser.AUTO,
+			width: window.innerWidth,
+			height: window.innerHeight,
+			scene: {
+				preload: preload,
+				create: create,
+				update: update
+			},
+			backgroundColor: '#3c3c3c'
+		};
+
+		var game = new Phaser.Game(config);
+
+		function preload() {
+			this.load.image('food', 'https://i.imgur.com/XZmcvI6.png');
+			this.load.image('body', 'https://i.imgur.com/4Ici4sN.png');
+		}
+
+		function create() {
+			this.snake = this.physics.add.group();
+
+			var startX = this.game.config.width / 2;
+			var startY = this.game.config.height / 2;
+
+			this.snake.create(startX, startY, 'body');
+
+			this.food = this.physics.add.sprite(0, 0, 'food');
+			this.placeFood();
+
+			this.cursors = this.input.keyboard.createCursorKeys();
+			this.time.delayedCall(1000, this.moveSnake, [], this);
+		}
+
+		function update(time, delta) {
+			if (this.snake.getLength() === 0) {
+				return;
+			}
+
+			var x = this.snake.getFirst(true).x;
+			var y = this.snake.getFirst(true).y;
+			var direction = this.snake.getFirst(true).direction;
+
+			switch (direction) {
+				case 'left':
+					x -= 16;
+					break;
+				case 'right':
+					x += 16;
+					break;
+				case 'up':
+					y -= 16;
+					break;
+				case 'down':
+					y += 16;
+					break;
+			}
+
+			if (this.checkCollision(x, y)) {
+				this.snake.clear(true, true);
+				return;
+			}
+
+			var oldBody = this.snake.getFirst(true);
+			var newBody = this.snake.create(x, y, 'body');
+			newBody.direction = direction;
+
+			if (x === this.food.x && y === this.food.y) {
+				this.placeFood();
+			} else {
+				oldBody.destroy();
+			}
+
+			this.checkDirection();
+		}
+
+		function checkDirection() {
+			if (this.cursors.left.isDown) {
+				if (this.snake.getFirst(true).direction !== 'right') {
+					this.snake.getFirst(true).direction = 'left';
+				}
+			} else if (this.cursors.right.isDown) {
+				if (this.snake.getFirst(true).direction !== 'left') {
+					this.snake.getFirst(true).direction = 'right';
+				}
+			} else if (this.cursors.up.isDown) {
+				if (this.snake.getFirst(true).direction !== 'down') {
+					this.snake.getFirst(true).direction = 'up';
+				}
+			} else if (this.cursors.down.isDown) {
+				if (this.snake.getFirst(true).direction !== 'up') {
+					this.snake.getFirst(true).direction = 'down';
+				}
+			}
+		}
+
+		function checkCollision
+
