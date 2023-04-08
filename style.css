@@ -1,0 +1,60 @@
+body {
+  background-color: #000;
+  overflow: hidden;
+  font-family: 'Courier New', Courier, monospace;
+  color: #0F0;
+}
+
+h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 50px;
+  font-weight: bold;
+  color: #fff;
+}
+
+#digit-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.digit {
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  color: #0F0;
+  text-shadow: 0px 0px 4px #0F0;
+}
+
+.digit-69 {
+  color: #0FF;
+  text-shadow: 0px 0px 4px #0FF;
+}
+
+.digit-420 {
+  color: #0F0;
+  text-shadow: 0px 0px 4px #0F0;
+}
+
+@keyframes digit-fall {
+  0% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+}
