@@ -22,33 +22,33 @@
 			position: absolute;
 			font-size: 20px;
 			color: green;
-			animation: digit-fall 6s linear infinite;
+			animation: digit-fall 10s linear infinite;
 		}
 
 		.digit-69 {
-			color: #00ff00;
+			color: #00ffff;
 		}
 
 		.digit-420 {
-			color: #ff00ff;
+			color: #00ff00;
 		}
 
 		@keyframes digit-fall {
 			from {
-				transform: translate(0, -100%);
+				transform: translateY(-100%);
 			}
 			to {
-				transform: translate(0, 100%);
+				transform: translateY(100vh);
 			}
 		}
 	</style>
 </head>
 <body>
 	<div id="digit-layer"></div>
+	<h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 50px;">MemeDigits.eth</h1>
 	<script>
 		var digitLayer = document.getElementById('digit-layer');
 		var windowWidth = window.innerWidth;
-		var windowHeight = window.innerHeight;
 		var digitCount = Math.floor(windowWidth / 20);
 		for (var i = 0; i < digitCount; i++) {
 			var digitElement = document.createElement('span');
@@ -61,7 +61,8 @@
 				digitElement.classList.add('digit-420');
 			}
 			digitElement.style.left = (i * 20) + 'px';
-			digitElement.style.top = Math.floor(Math.random() * windowHeight) + 'px';
+			digitElement.style.top = Math.floor(Math.random() * -200) + 'px';
+			digitElement.style.animationDelay = Math.floor(Math.random() * 10000) + 'ms';
 			digitLayer.appendChild(digitElement);
 		}
 	</script>
