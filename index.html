@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Matrix Digits</title>
+	<style>
+		body {
+			background-color: black;
+			overflow: hidden;
+			font-family: "Courier", monospace;
+		}
+
+		#digit-layer {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+		}
+
+		.digit {
+			position: absolute;
+			font-size: 20px;
+			color: green;
+			animation: digit-fall 6s linear infinite;
+		}
+
+		.digit-69 {
+			color: #00ff00;
+		}
+
+		.digit-420 {
+			color: #ff00ff;
+		}
+
+		@keyframes digit-fall {
+			from {
+				transform: translate(0, -100%);
+			}
+			to {
+				transform: translate(0, 100%);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id="digit-layer"></div>
+	<script>
+		var digitLayer = document.getElementById('digit-layer');
+		var windowWidth = window.innerWidth;
+		var windowHeight = window.innerHeight;
+		var digitCount = Math.floor(windowWidth / 20);
+		for (var i = 0; i < digitCount; i++) {
+			var digitElement = document.createElement('span');
+			digitElement.classList.add('digit');
+			if (Math.random() < 0.5) {
+				digitElement.innerText = '69';
+				digitElement.classList.add('digit-69');
+			} else {
+				digitElement.innerText = '420';
+				digitElement.classList.add('digit-420');
+			}
+			digitElement.style.left = (i * 20) + 'px';
+			digitElement.style.top = Math.floor(Math.random() * windowHeight) + 'px';
+			digitLayer.appendChild(digitElement);
+		}
+	</script>
+</body>
+</html>
